@@ -65,17 +65,24 @@ return 0;
 
 void operation(char *in_file)
 {
-	int i,j,l,m,a,b,c,d,arr[5],fl=0;FILE *fp_r,*fp_w;
-
-
+	int i,j,l,m,a,b,c,d,*arr,fl=0;FILE *fp_r,*fp_w;
+    char ch;
+    h=0;
 	fp_r=fopen(in_file,"r");
 	// find file size
 	size_t pos = ftell(fp_r);    // Current position
 	 fseek(fp_r, 0, SEEK_END);    // Go to end
 	 size_t length = ftell(fp_r); // read the position which is the size
 	 fseek(fp_r, pos, SEEK_SET);  // restore original position
+     do
+     {
+    	 ch=fgetc(fp_r);
+    	 if(ch==',') h++;
 
-	 h=(length-1)/2;			// account for commas and newline
+     }while(ch!=EOF);h++;
+     fseek(fp_r, pos, SEEK_SET);  // restore original position
+	// h=(length-1)/2;			// account for commas and newline
+	 arr = (int*)malloc(h*sizeof(int));
 	 printf("size of file = %d\n",h);
 	fp_w=fopen("output.txt","w");
 	fprintf(fp_w,"The possible a,b,c,d values are:\n");
@@ -87,6 +94,7 @@ void operation(char *in_file)
 			}
 
 max = arr[h-1];
+printf("max = %d\n",max);
 	for(i=0;i<h;i++)
 		{
 			a=arr[i];
