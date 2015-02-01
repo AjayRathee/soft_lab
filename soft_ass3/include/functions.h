@@ -9,6 +9,6 @@
 #define FUNCTIONS_H_
 
 int fun(int len, char*buffer,FILE *fp_w);
-void operation();
+void operation(char in_file[256]);
 
 #endif /* FUNCTIONS_H_ */

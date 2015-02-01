@@ -23,8 +23,7 @@ int fun(int len, char*buffer,FILE *fp_w)
 
 				strncpy(str,buffer,j);
 				r=atoi (str);h++;
-				fprintf(fp_w,"%d ",r);
-
+				fprintf(fp_w,"%d,",r);
 
 				for(l=0;l<len;l++)
 				temp[l]=buffer[l];
@@ -49,7 +48,7 @@ int fun(int len, char*buffer,FILE *fp_w)
 						r=atoi (str);
 						flag=1;
 						 max=r;
-
+						 fprintf(fp_w,"%d\n",r);
 					}
 			}
 		}
@@ -64,15 +63,30 @@ return 0;
 }
 
 
-void operation()
+void operation(char *in_file)
 {
-	int i,j,l,m,a,b,c,d,arr[h],fl=0;FILE *fp_r,*fp_w;
-	fp_r=fopen("input.txt","r");
+	int i,j,l,m,a,b,c,d,arr[5],fl=0;FILE *fp_r,*fp_w;
+
+
+	fp_r=fopen(in_file,"r");
+	// find file size
+	size_t pos = ftell(fp_r);    // Current position
+	 fseek(fp_r, 0, SEEK_END);    // Go to end
+	 size_t length = ftell(fp_r); // read the position which is the size
+	 fseek(fp_r, pos, SEEK_SET);  // restore original position
+
+	 h=(length-1)/2;			// account for commas and newline
+	 printf("size of file = %d\n",h);
 	fp_w=fopen("output.txt","w");
 	fprintf(fp_w,"The possible a,b,c,d values are:\n");
-for(j=0;j<h;j++)
-fscanf(fp_r,"%d",&arr[j]);
 
+			for(j=0;j<h;j++)
+			{
+				fscanf(fp_r,"%d%*c",&arr[j]);
+				printf("array = %d\n",arr[j]);
+			}
+
+max = arr[h-1];
 	for(i=0;i<h;i++)
 		{
 			a=arr[i];
